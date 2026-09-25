@@ -1,0 +1,268 @@
+// @font-face {
+//     font-family: 'Soleil';
+//     src: url('~@/assets/fonts/SoleilRegular.otf');
+// }
+// @font-face {
+//     font-family: 'Soleil Bold';
+//     src: url('~@/assets/fonts/SoleilBold.otf');
+// }
+// @font-face {
+//     font-family: 'Soleil Book';
+//     src: url('~@/assets/fonts/SoleilBook.otf');
+// }
+// @font-face {
+//     font-family: 'Soleil Light';
+//     src: url('~@/assets/fonts/SoleilLight.otf');
+// }
+
+// @font-face {
+//     font-family: 'Soleil Light';
+//     src: url('~@/assets/fonts/SoleilLight.otf');
+// }
+
+/* Thin */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaThin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Thin Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaThinItalic.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Regular */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaRegular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaBoldItalic.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Ultra Light */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaUltLight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Ultra Light Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaUltLightItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Heavy */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaHeavy.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Heavy Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaHeavyItalic.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Black */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaBlack.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Black Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaBlackItalic.otf") format("opentype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Medium */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaMedium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium Italic */
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("/fonts/NeueHaasUnicaMediumItalic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@mixin band-logo-container {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    font-family: 'NeueHaasUnica', sans-serif;
+    font-weight: 800;
+    text-align: center;
+}
+
+@mixin hover-border {
+    box-sizing: border-box;  // ✅ ensures border doesn't increase size
+    border: 1px solid transparent; // set initial border so hover doesn't add space
+}
+
+.main-headliner {
+    @include band-logo-container;
+    @include hover-border;
+}
+.main-headliner:hover {
+    border: solid #C67D0E 1px;
+}
+
+// .main-sub {
+//     @include band-logo-container;
+//     @include hover-border;
+//     height: 100%;
+// }
+
+// .main-third {
+//     @include band-logo-container;
+//     @include hover-border;
+//     height: 50px;
+// }
+
+// .alt-third {
+//     @include band-logo-container;
+//     height: 50px;
+// }
+
+@mixin band-grid-container {
+    display: grid;
+    grid-gap: 2px;
+    height: 100px;
+}
+
+.band-grid-thursday {
+    @include band-grid-container;
+    padding: 15% 10% 0 10%;
+}
+
+.band-grid-friday {
+    @include band-grid-container;
+    padding: 10px 30px 0 50px;
+}
+
+.band-grid-saturday {
+    @include band-grid-container;
+    padding: 10px 40px 0 60px;
+}
+
+.headliners-one {
+    grid-template-columns: 1fr;
+}
+// .headliners-one div:hover {
+//     border: solid #C67D0E 1px;
+// }
+
+.headliners-two {
+    grid-template-columns: 1fr 1fr;
+}
+// .headliners-two div:hover {
+//     border: solid #C67D0E 1px;
+// }
+
+.sub-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2px;
+    height: 20%;
+}
+
+.sub-grid-four {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    height: 20%;
+}
+
+.sub-grid div:hover {
+    border: solid #C67D0E 1px;
+}
+
+.sub-grid-four div:hover {
+    border: solid #C67D0E 1px;
+}
+
+.band-grid-wednesday {
+    display: flex;
+}
+
+.band-grid-wednesday div:hover {
+    border: solid #C67D0E 1px;
+}
+
+body.download-poster-bg {
+  background-color:#1f2832;
+}
+
+body.damnation-poster-bg {
+  background-color: black;
+}
+
+.smallest-band-logo { transform: scale(0.7); }
+.smaller-band-logo  { transform: scale(0.8); }
+.small-band-logo    { transform: scale(0.9); }
+.normal-band-logo   { transform: scale(1); }
+.large-band-logo    { transform: scale(1.1); }
+.larger-band-logo   { transform: scale(1.2); }
+.largest-band-logo  { transform: scale(1.3); }
