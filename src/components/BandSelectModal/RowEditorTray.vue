@@ -209,7 +209,6 @@
             <input
               id="row-size"
               type="range"
-              :disabled="isAutoCappedRow"
               v-model.number="sliderValue"
               min="1"
               max="10"
@@ -562,7 +561,7 @@ export default {
   background: rgba(255, 255, 255, 1);
   color: #222;
   border: 1px solid #111f18;
-  font-family: "NeueHaasUnica", sans-serif;
+  font-family: Helvetica, sans-serif;
   max-height: 32vh;
   overflow: hidden;
 }

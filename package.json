@@ -15,7 +15,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@benjicwood/artist-assets": "^1.0.29",
+    "@benjicwood/artist-assets": "^1.0.30",
     "html-to-image": "^1.11.13",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"

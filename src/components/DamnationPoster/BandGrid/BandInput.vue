@@ -28,7 +28,7 @@ export default {
   border: none;
   text-align: center;
   color: white;
-  font-family: "NeueHaasUnica", sans-serif;
+  font-family: Helvetica, sans-serif;
   font-weight: 800;
   /* text-transform: uppercase; */
 }

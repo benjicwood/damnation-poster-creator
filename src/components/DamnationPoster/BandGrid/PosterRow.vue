@@ -20,7 +20,7 @@
         v-for="(band, index) in logoBands"
         :key="`${band.id || band.name}-${index}`"
         class="poster-logo-item"
-        :style="{ transform: `scale(${logoScale})` }"
+        :style="band.logo ? { transform: `scale(${logoScale})` } : {}"
       >
         <img
           v-if="band.logo"
@@ -29,7 +29,11 @@
           class="poster-row-logo"
         />
 
-        <span v-else class="poster-logo-fallback">
+        <span
+          v-else
+          class="poster-logo-fallback"
+          :style="{ fontSize: `${getLogoFallbackSize(band.name)}px` }"
+        >
           {{ band.name }}
         </span>
       </div>
@@ -122,10 +126,7 @@ export default {
     },
 
     baseLetterSpacing() {
-      const weight = Number(this.row?.weight) || 400;
-      if (weight <= 200) return 0.08;
-      if (weight >= 800) return 0.02;
-      return 0.04;
+      return 0;
     },
 
     rowClass() {
@@ -137,11 +138,13 @@ export default {
     textStyle() {
       return {
         fontSize: `${this.resolvedPx}px`,
-        fontWeight: String(Number(this.row?.weight) || 400),
+        fontWeight: "400",
+        fontStyle: "italic",
         whiteSpace: this.row?.allowWrap ? "normal" : "nowrap",
         lineHeight: this.row?.allowWrap ? "1.05" : "1",
         letterSpacing: this.resolvedLetterSpacing,
         textAlign: this.row?.textAlign || "center",
+        margin: "auto",
       };
     },
     showLogoLayout() {
@@ -199,7 +202,7 @@ export default {
     fitRowText() {
       const container = this.$refs.rowEl;
 
-      if (!container || !this.displayText || this.isLogoMode) {
+      if (!container || !this.displayText || this.showLogoLayout) {
         this.resolvedPx = this.basePx;
         this.resolvedLetterSpacing = `${this.baseLetterSpacing}em`;
         return;
@@ -216,7 +219,7 @@ export default {
 
       let fittedPx = this.minPx;
 
-      for (let px = 120; px >= this.minPx; px--) {
+      for (let px = this.row?.maxPx || 120; px >= this.minPx; px--) {
         if (
           this.textFits({
             text: this.displayText,
@@ -251,20 +254,6 @@ export default {
 
       const isMobile = window.innerWidth <= 700;
 
-      const isSparseLowerLineup =
-        this.row?.capSparseText && this.displayText.length < 40;
-
-      if (isSparseLowerLineup) {
-        targetPx = Math.min(targetPx, isMobile ? 14 : 22);
-      }
-
-      const isLikelySingleLine =
-        !isMobile && this.row?.capSparseText && this.displayText.length < 40;
-
-      if (isLikelySingleLine) {
-        targetPx = Math.min(targetPx, 22);
-      }
-
       for (let px = targetPx; px >= this.minPx; px--) {
         if (
           this.textFits({
@@ -287,6 +276,37 @@ export default {
       this.resolvedLetterSpacing = `${this.baseLetterSpacing}em`;
     },
 
+    getLogoFallbackSize(name) {
+      const size = Number(this.row?.size || 5);
+      const bandCount = this.logoBands.length || 1;
+
+      const sizeMap = {
+        1: 22,
+        2: 25,
+        3: 28,
+        4: 31,
+        5: 35,
+        6: 40,
+        7: 46,
+        8: 52,
+        9: 55,
+        10: 58,
+      };
+
+      const bandScale = {
+        1: 1,
+        2: 1,
+        3: 0.9,
+        4: 0.8,
+        5: 0.7,
+        6: 0.6,
+        7: 0.5,
+        8: 0.45,
+      };
+
+      return sizeMap[size] * (bandScale[bandCount] || 0.5);
+    },
+
     textFits({
       text,
       fontSize,
@@ -304,9 +324,10 @@ export default {
       measure.style.left = "-99999px";
       measure.style.top = "-99999px";
       measure.style.display = "block";
-      measure.style.fontFamily = '"NeueHaasUnica", sans-serif';
-      measure.style.fontWeight = String(Number(weight) || 400);
+      measure.style.fontFamily = '"GrimoireOfDeath", serif';
       measure.style.fontSize = `${fontSize}px`;
+      measure.style.fontWeight = "400";
+      measure.style.fontStyle = "italic";
       measure.style.letterSpacing = `${letterSpacing}em`;
       measure.style.textTransform = "uppercase";
       measure.style.lineHeight = allowWrap ? "1.05" : "1";
@@ -328,6 +349,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@font-face {
+  font-family: "GrimoireOfDeath";
+  src: url("/fonts/GrimoireOfDeath-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 .poster-row {
   display: flex;
   align-items: center;
@@ -345,21 +374,33 @@ export default {
   border-color: #c67d0e;
 }
 
+// .poster-row-text {
+//   display: block;
+//   width: 100%;
+//   color: white;
+//   font-family: "NeueHaasUnica", sans-serif;
+//   text-transform: uppercase;
+//   font-synthesis: none;
+// }
+
 .poster-row-text {
   display: block;
   width: 100%;
   color: white;
-  font-family: "NeueHaasUnica", sans-serif;
+  font-family: "GrimoireOfDeath", serif;
+  font-style: italic;
+  font-weight: 400;
   text-transform: uppercase;
   font-synthesis: none;
 }
 
 .poster-row-placeholder {
   color: rgba(255, 255, 255, 0.45);
-  font-family: "NeueHaasUnica", sans-serif;
-  font-size: 0.72rem;
+  font-family: sans-serif;
+  font-size: 1rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  margin: auto;
 }
 
 .poster-logo-row {
@@ -388,12 +429,21 @@ export default {
   display: block;
 }
 
+// .poster-logo-fallback {
+//   color: white;
+//   font-family: "NeueHaasUnica", sans-serif;
+
+//   text-transform: uppercase;
+//   // font-size: clamp(10px, 1vw, 20px);
+//   line-height: 1;
+//   text-align: center;
+// }
 .poster-logo-fallback {
   color: white;
-  font-family: "NeueHaasUnica", sans-serif;
-  font-weight: 900;
+  font-family: "GrimoireOfDeath", serif;
+  font-style: italic;
+  font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(10px, 1vw, 20px);
   line-height: 1;
   text-align: center;
 }
