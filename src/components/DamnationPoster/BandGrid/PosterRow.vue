@@ -32,7 +32,7 @@
         <span
           v-else
           class="poster-logo-fallback"
-          :style="{ fontSize: `${getLogoFallbackSize(band.name)}px` }"
+          :style="{ fontSize: `${getLogoFallbackSize(band.name)}cqw` }"
         >
           {{ band.name }}
         </span>
@@ -295,16 +295,16 @@ export default {
 
       const bandScale = {
         1: 1,
-        2: 1,
-        3: 0.9,
+        2: 1.5,
+        3: 1.2,
         4: 0.8,
         5: 0.7,
         6: 0.6,
-        7: 0.5,
-        8: 0.45,
+        7: 0.55,
+        8: 0.5,
       };
 
-      return sizeMap[size] * (bandScale[bandCount] || 0.5);
+      return (sizeMap[size] * (bandScale[bandCount] || 0.5) / 700) * 100;
     },
 
     textFits({
@@ -324,7 +324,7 @@ export default {
       measure.style.left = "-99999px";
       measure.style.top = "-99999px";
       measure.style.display = "block";
-      measure.style.fontFamily = '"GrimoireOfDeath", serif';
+      measure.style.fontFamily = '"Dementia", serif';
       measure.style.fontSize = `${fontSize}px`;
       measure.style.fontWeight = "400";
       measure.style.fontStyle = "italic";
@@ -350,11 +350,12 @@ export default {
 
 <style scoped lang="scss">
 @font-face {
-  font-family: "GrimoireOfDeath";
-  src: url("/fonts/GrimoireOfDeath-Italic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
+  font-family: "Dementia";
+  src: url("/fonts/dementia.ttf") format("truetype");
+
+  ascent-override: 75%;
+  descent-override: 25%;
+  line-gap-override: 0%;
 }
 
 .poster-row {
@@ -387,7 +388,7 @@ export default {
   display: block;
   width: 100%;
   color: white;
-  font-family: "GrimoireOfDeath", serif;
+  font-family: "Dementia", serif;
   font-style: italic;
   font-weight: 400;
   text-transform: uppercase;
@@ -440,7 +441,7 @@ export default {
 // }
 .poster-logo-fallback {
   color: white;
-  font-family: "GrimoireOfDeath", serif;
+  font-family: "Dementia", serif;
   font-style: italic;
   font-weight: 400;
   text-transform: uppercase;
